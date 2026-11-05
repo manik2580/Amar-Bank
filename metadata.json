@@ -1,0 +1,6 @@
+{
+  "name": "MyBank – Personal Banking Manager",
+  "description": "Premium personal banking management dashboard with black glassmorphism design, multi-account and card tracking, wallet analytics, and budgeting.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

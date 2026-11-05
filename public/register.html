@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register – MyBank</title>
+  <meta name="description" content="Create a MyBank personal banking account with Apitex theme.">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; background: var(--bg-main);">
+
+<div class="card" style="width: 100%; max-width: 460px; padding: 42px 36px; border-radius: var(--radius-xl); box-shadow: 0 20px 50px rgba(8, 7, 39, 0.08);">
+  <div style="text-align: center; margin-bottom: 24px;">
+    <div class="brand-icon" style="margin: 0 auto 16px; width: 52px; height: 52px; border-radius: var(--radius-md);">
+      <i data-lucide="shield-check" style="width: 28px; height: 28px;"></i>
+    </div>
+    <h1 style="font-family: var(--font-display); font-size: 26px; font-weight: 800; color: var(--navy-primary); letter-spacing: -0.5px;">Join My<span>Bank</span></h1>
+    <p style="color: var(--text-secondary); font-size: 13px; margin-top: 4px;">Set up your premium Apitex mobile finance vault</p>
+  </div>
+
+  <form id="form-register" onsubmit="handleRegister(event)">
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+      <div class="form-group">
+        <label class="form-label" for="reg-name">Full Legal Name</label>
+        <div class="input-with-icon">
+          <span class="input-icon-leading">
+            <i data-lucide="user" style="width: 18px; height: 18px;"></i>
+          </span>
+          <input type="text" id="reg-name" required placeholder="H. R. Manik">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="reg-email">Email Address</label>
+        <div class="input-with-icon">
+          <span class="input-icon-leading">
+            <i data-lucide="mail" style="width: 18px; height: 18px;"></i>
+          </span>
+          <input type="email" id="reg-email" required placeholder="name@domain.com">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="reg-pass">Secure Password</label>
+        <div class="input-with-icon">
+          <span class="input-icon-leading">
+            <i data-lucide="lock" style="width: 18px; height: 18px;"></i>
+          </span>
+          <input type="password" id="reg-pass" required placeholder="Minimum 8 characters">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="reg-currency">Base Currency</label>
+        <select id="reg-currency">
+          <option value="BDT">Bangladeshi Taka (BDT ৳)</option>
+          <option value="USD">US Dollar (USD $)</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px; padding: 14px;">
+        <i data-lucide="user-plus" style="width: 16px; height: 16px;"></i>
+        <span>Create Apitex Account</span>
+      </button>
+
+      <div style="text-align: center; font-size: 13px; color: var(--text-secondary); margin-top: 10px;">
+        Already registered? <a href="/login.html" style="color: var(--coral-accent); font-weight: 700;">Sign In</a>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script src="/js/app.js"></script>
+<script>
+  function handleRegister(e) {
+    e.preventDefault();
+    const name = document.getElementById('reg-name').value;
+    const cur = document.getElementById('reg-currency').value;
+
+    const settings = BankDB.getSettings();
+    settings.currency = cur;
+    BankDB.saveSettings(settings);
+
+    showToast(`Account created for ${name}! Redirecting...`, 'success');
+    setTimeout(() => {
+      window.location.href = '/index.html';
+    }, 800);
+  }
+</script>
+</body>
+</html>

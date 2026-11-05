@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile Wallets – MyBank</title>
+  <meta name="description" content="Track bKash, Nagad, and Rocket mobile wallet balances, service fees, and cashouts.">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+<div class="app-container">
+  <aside class="app-sidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo">
+        <div class="brand-icon">
+          <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
+        </div>
+        <div class="brand-name">My<span>Bank</span></div>
+      </div>
+      <span class="brand-badge">APITEX</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Overview</div>
+      <a href="/index.html" class="nav-item">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="/analytics.html" class="nav-item">
+        <i data-lucide="line-chart"></i>
+        <span>Financial Analytics</span>
+      </a>
+
+      <div class="nav-section-title">Banking & Cards</div>
+      <a href="/accounts.html" class="nav-item">
+        <i data-lucide="landmark"></i>
+        <span>Bank Accounts</span>
+      </a>
+      <a href="/cards.html" class="nav-item">
+        <i data-lucide="credit-card"></i>
+        <span>Debit Cards</span>
+      </a>
+      <a href="/wallets.html" class="nav-item active">
+        <i data-lucide="wallet"></i>
+        <span>Mobile Wallets</span>
+      </a>
+
+      <div class="nav-section-title">Transactions & Budget</div>
+      <a href="/transactions.html" class="nav-item">
+        <i data-lucide="arrow-left-right"></i>
+        <span>Transactions</span>
+      </a>
+      <a href="/budgets.html" class="nav-item">
+        <i data-lucide="pie-chart"></i>
+        <span>Budget Manager</span>
+      </a>
+      <a href="/reports.html" class="nav-item">
+        <i data-lucide="file-text"></i>
+        <span>Reports & Export</span>
+      </a>
+
+      <div class="nav-section-title">Account</div>
+      <a href="/settings.html" class="nav-item">
+        <i data-lucide="settings"></i>
+        <span>Settings</span>
+      </a>
+      <a href="/login.html" class="nav-item">
+        <i data-lucide="log-out"></i>
+        <span>Sign Out</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-snippet">
+        <div class="user-avatar">HR</div>
+        <div class="user-info">
+          <div class="user-name">H. R. Manik</div>
+          <div class="user-role">Apitex Platinum</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="app-main">
+    <header class="app-header">
+      <div class="header-left">
+        <button class="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <i data-lucide="menu"></i>
+        </button>
+        <div class="header-breadcrumb">
+          <span>Banking</span>
+          <span style="color: rgba(255, 255, 255, 0.4);">/</span>
+          <span class="current">Mobile Financial Services</span>
+        </div>
+        <div class="demo-banner">
+          <i data-lucide="shield" style="width: 13px; height: 13px;"></i>
+          <span>MFS TRACKER</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <button class="btn btn-peach btn-sm" onclick="openModal('modal-wallet-action')">
+          <i data-lucide="plus" style="width: 14px; height: 14px;"></i>
+          <span>Log MFS Activity</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="dashboard-container">
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <h1 style="font-family: var(--font-display); font-size: 24px; font-weight: 800; color: var(--navy-primary);">bKash, Nagad & Rocket</h1>
+          <p style="color: var(--text-secondary); font-size: 13px; margin-top: 4px;">
+            Log send money, inward remittances, cash-out, and calculate 1.49% to 1.85% operator charges.
+          </p>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="openModal('modal-wallet-action')">
+          <i data-lucide="plus" style="width: 14px; height: 14px;"></i>
+          <span>Log Entry</span>
+        </button>
+      </div>
+
+      <!-- Wallets Grid -->
+      <div id="wallets-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+        <!-- Dynamically rendered -->
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Mobile Bottom Navigation -->
+<div class="mobile-bottom-nav">
+  <a href="/index.html" class="mobile-nav-link">
+    <i data-lucide="layout-dashboard"></i>
+    <span>Home</span>
+  </a>
+  <a href="/accounts.html" class="mobile-nav-link">
+    <i data-lucide="landmark"></i>
+    <span>Accounts</span>
+  </a>
+  <a href="/cards.html" class="mobile-nav-link">
+    <i data-lucide="credit-card"></i>
+    <span>Cards</span>
+  </a>
+  <a href="/wallets.html" class="mobile-nav-link active">
+    <i data-lucide="wallet"></i>
+    <span>Wallets</span>
+  </a>
+  <a href="/transactions.html" class="mobile-nav-link">
+    <i data-lucide="arrow-left-right"></i>
+    <span>Activity</span>
+  </a>
+</div>
+
+<!-- Wallet Action Modal -->
+<div id="modal-wallet-action" class="modal-overlay">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">
+        <i data-lucide="smartphone" style="color: var(--coral-accent);"></i>
+        <span>Log MFS Activity</span>
+      </div>
+      <button class="modal-close" type="button">&times;</button>
+    </div>
+    <form id="form-wallet-action">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="wallet-select">Select Wallet</label>
+          <select id="wallet-select">
+            <option value="wal_1">bKash (017••••4892)</option>
+            <option value="wal_2">Nagad (018••••1120)</option>
+            <option value="wal_3">Rocket (019••••9901)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="wallet-activity-type">Action Type</label>
+          <select id="wallet-activity-type">
+            <option value="receive">Money Received (Inward)</option>
+            <option value="send">Send Money (P2P)</option>
+            <option value="cashout">Cash Out (Agent)</option>
+            <option value="merchant">Merchant Payment</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="wallet-amount">Amount (BDT)</label>
+          <div class="input-with-icon">
+            <span class="input-icon-leading font-mono">৳</span>
+            <input type="number" id="wallet-amount" placeholder="e.g. 5000" min="1" step="any" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="wallet-party">Party / Merchant Name</label>
+          <input type="text" id="wallet-party" placeholder="e.g. 01711000000 / Daraz" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-modal-cancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">Update MFS Balance</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/js/app.js"></script>
+<script>
+  function renderWalletsPage() {
+    const wallets = BankDB.getWallets();
+    const container = document.getElementById('wallets-grid');
+    if (!container) return;
+
+    container.innerHTML = wallets.map(w => {
+      let brandColor = '#E2136E';
+      if (w.name === 'Nagad') brandColor = '#F7941D';
+      if (w.name === 'Rocket') brandColor = '#8C288E';
+
+      return `
+        <div class="card" style="padding: 24px; border-top: 4px solid ${brandColor};">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="width: 44px; height: 44px; border-radius: var(--radius-full); background: ${w.name === 'bKash' ? 'rgba(226, 19, 110, 0.12)' : (w.name === 'Nagad' ? 'rgba(247, 148, 29, 0.12)' : 'rgba(140, 40, 142, 0.12)')}; display: flex; align-items: center; justify-content: center; color: ${brandColor}; font-weight: 800; font-size: 18px; font-family: var(--font-display);">
+                ${w.name[0]}
+              </div>
+              <div>
+                <div style="font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--navy-primary);">${w.name}</div>
+                <div class="font-mono" style="font-size: 12px; color: var(--text-secondary);">${w.number}</div>
+              </div>
+            </div>
+            <span class="balance-label-pill" style="font-size: 10px;">
+              Fee: ৳${w.fee}/1k
+            </span>
+          </div>
+
+          <div style="margin: 18px 0;">
+            <div style="font-size: 11px; text-transform: uppercase; color: var(--text-secondary); font-weight: 600;">Available Balance</div>
+            <div class="font-mono" style="font-size: 28px; font-weight: 800; color: var(--navy-primary); margin-top: 4px;">
+              ${formatCurrency(w.balance)}
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 12px 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); font-size: 12px;">
+            <div>
+              <span style="color: var(--text-secondary);">Received: </span>
+              <span class="font-mono" style="color: var(--status-success); font-weight: 700;">+${formatCurrency(w.received)}</span>
+            </div>
+            <div>
+              <span style="color: var(--text-secondary);">Sent/Out: </span>
+              <span class="font-mono" style="color: var(--coral-accent); font-weight: 700;">-${formatCurrency(w.sent + (w.cashOut || 0))}</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 18px; display: flex; gap: 10px;">
+            <button class="btn btn-sm btn-secondary" style="flex: 1;" onclick="quickCashOut('${w.id}', '${w.name}')">
+              <i data-lucide="arrow-up-right" style="width: 13px; height: 13px;"></i>
+              <span>Cash Out</span>
+            </button>
+            <button class="btn btn-sm btn-peach" style="flex: 1;" onclick="openModal('modal-wallet-action')">
+              <i data-lucide="plus" style="width: 13px; height: 13px;"></i>
+              <span>Log Entry</span>
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    if (window.lucide) window.lucide.createIcons({ root: container });
+  }
+
+  function quickCashOut(walletId, walletName) {
+    const sel = document.getElementById('wallet-select');
+    const act = document.getElementById('wallet-activity-type');
+    const party = document.getElementById('wallet-party');
+    if (sel) sel.value = walletId;
+    if (act) act.value = 'cashout';
+    if (party) party.value = 'Agent Point';
+    openModal('modal-wallet-action');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderWalletsPage();
+    window.addEventListener('currencyChanged', renderWalletsPage);
+
+    const form = document.getElementById('form-wallet-action');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const walId = document.getElementById('wallet-select').value;
+        const type = document.getElementById('wallet-activity-type').value;
+        const amount = parseFloat(document.getElementById('wallet-amount').value);
+        const party = document.getElementById('wallet-party').value.trim();
+
+        if (!amount || amount <= 0) {
+          showToast('Please enter a valid amount', 'error');
+          return;
+        }
+
+        const wallets = BankDB.getWallets();
+        const wal = wallets.find(w => w.id === walId) || wallets[0];
+        let totalDeduct = amount;
+        let fee = 0;
+
+        if (type === 'receive') {
+          wal.balance += amount;
+          wal.received = (wal.received || 0) + amount;
+        } else if (type === 'cashout') {
+          const feePer1k = wal.fee || 18.5;
+          fee = Math.ceil((amount / 1000) * feePer1k);
+          totalDeduct = amount + fee;
+          if (wal.balance < totalDeduct) {
+            showToast(`Insufficient balance in ${wal.name} (Need ৳${totalDeduct} with ৳${fee} fee)`, 'error');
+            return;
+          }
+          wal.balance -= totalDeduct;
+          wal.cashOut = (wal.cashOut || 0) + amount;
+        } else {
+          if (wal.balance < amount) {
+            showToast('Insufficient wallet balance', 'error');
+            return;
+          }
+          wal.balance -= amount;
+          wal.sent = (wal.sent || 0) + amount;
+        }
+
+        BankDB.saveWallets(wallets);
+
+        const txs = BankDB.getTransactions();
+        txs.unshift({
+          id: 'TX-' + Math.floor(1000 + Math.random() * 9000),
+          date: new Date().toISOString(),
+          amount: totalDeduct,
+          type: `${wal.name} Payment`,
+          category: type === 'receive' ? 'Income' : (type === 'cashout' ? 'Cash' : 'Wallet Activity'),
+          sourceAccount: `${wal.name} (${wal.number})`,
+          destAccount: party,
+          description: type === 'cashout' ? `${wal.name} Agent Cash Out (Fee ৳${fee})` : `${wal.name} ${type.toUpperCase()} - ${party}`,
+          notes: type === 'cashout' ? `Principal: ৳${amount}, Fee: ৳${fee}` : 'MFS Entry',
+          status: 'Completed'
+        });
+        BankDB.saveTransactions(txs);
+
+        closeModal('modal-wallet-action');
+        form.reset();
+        renderWalletsPage();
+        showToast(type === 'cashout' ? `Cashed out ${formatCurrency(amount)} from ${wal.name} (Fee: ৳${fee})` : `${wal.name} balance updated`, 'success');
+      });
+    }
+  });
+</script>
+</body>
+</html>

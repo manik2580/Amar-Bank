@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login – MyBank</title>
+  <meta name="description" content="Secure login to MyBank Personal Banking Manager with Apitex theme.">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; background: var(--bg-main);">
+
+<div class="card" style="width: 100%; max-width: 440px; padding: 42px 36px; border-radius: var(--radius-xl); box-shadow: 0 20px 50px rgba(8, 7, 39, 0.08);">
+  <div style="text-align: center; margin-bottom: 28px;">
+    <div class="brand-icon" style="margin: 0 auto 16px; width: 52px; height: 52px; border-radius: var(--radius-md);">
+      <i data-lucide="shield-check" style="width: 28px; height: 28px;"></i>
+    </div>
+    <h1 style="font-family: var(--font-display); font-size: 26px; font-weight: 800; color: var(--navy-primary); letter-spacing: -0.5px;">My<span>Bank</span></h1>
+    <p style="color: var(--text-secondary); font-size: 13px; margin-top: 4px;">Welcome back to your Apitex banking vault</p>
+  </div>
+
+  <form id="form-login" onsubmit="handleLogin(event)">
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <div class="form-group">
+        <label class="form-label" for="login-email">Email or Account ID</label>
+        <div class="input-with-icon">
+          <span class="input-icon-leading">
+            <i data-lucide="mail" style="width: 18px; height: 18px;"></i>
+          </span>
+          <input type="email" id="login-email" value="official.hrmanik@gmail.com" required placeholder="name@domain.com">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="login-password">Password</label>
+        <div class="input-with-icon">
+          <span class="input-icon-leading">
+            <i data-lucide="lock" style="width: 18px; height: 18px;"></i>
+          </span>
+          <input type="password" id="login-password" value="••••••••••••" required placeholder="Enter password">
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-secondary);">
+        <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+          <input type="checkbox" checked style="width: 16px; height: 16px;">
+          <span>Remember me</span>
+        </label>
+        <a href="#" style="color: var(--coral-accent); font-weight: 700;" onclick="openModal('modal-forgot')">Forgot Password?</a>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px; padding: 14px;">
+        <i data-lucide="lock" style="width: 16px; height: 16px;"></i>
+        <span>Sign In to MyBank</span>
+      </button>
+
+      <div style="text-align: center; font-size: 13px; color: var(--text-secondary); margin-top: 14px;">
+        Don't have an account? <a href="/register.html" style="color: var(--coral-accent); font-weight: 700;">Open Account</a>
+      </div>
+
+      <div style="text-align: center; margin-top: 8px;">
+        <a href="/index.html" style="font-size: 12px; color: var(--navy-primary); font-weight: 600;">Access Demo Dashboard &rarr;</a>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Forgot Password Modal -->
+<div id="modal-forgot" class="modal-overlay">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">
+        <i data-lucide="key" style="color: var(--coral-accent);"></i>
+        <span>Reset Password</span>
+      </div>
+      <button class="modal-close" type="button">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size: 13px; color: var(--text-secondary);">Enter your registered mobile or email to receive a 6-digit OTP verification token.</p>
+      <div class="form-group">
+        <label class="form-label">Email or Phone</label>
+        <input type="text" value="official.hrmanik@gmail.com">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary btn-modal-cancel">Cancel</button>
+      <button type="button" class="btn btn-primary" onclick="showToast('6-digit OTP token dispatched (048-921)', 'success'); closeModal('modal-forgot');">Send OTP</button>
+    </div>
+  </div>
+</div>
+
+<script src="/js/app.js"></script>
+<script>
+  function handleLogin(e) {
+    e.preventDefault();
+    showToast('Authenticated successfully. Redirecting...', 'success');
+    setTimeout(() => {
+      window.location.href = '/index.html';
+    }, 600);
+  }
+</script>
+</body>
+</html>

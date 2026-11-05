@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyBank – Personal Banking Manager</title>
+  <meta name="description" content="Apitex-inspired luxury mobile banking app with premium navy and peach fintech design.">
+  <meta property="og:title" content="MyBank – Personal Banking Manager">
+  <meta property="og:description" content="Apitex-inspired luxury mobile banking app with premium navy and peach fintech design.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+
+  <!-- Chart.js & Lucide CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- Desktop Navy Sidebar Navigation -->
+  <aside class="app-sidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo">
+        <div class="brand-icon">
+          <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
+        </div>
+        <div class="brand-name">My<span>Bank</span></div>
+      </div>
+      <span class="brand-badge">APITEX</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Overview</div>
+      <a href="/index.html" class="nav-item active">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="/analytics.html" class="nav-item">
+        <i data-lucide="line-chart"></i>
+        <span>Financial Analytics</span>
+      </a>
+
+      <div class="nav-section-title">Banking & Cards</div>
+      <a href="/accounts.html" class="nav-item">
+        <i data-lucide="landmark"></i>
+        <span>Bank Accounts</span>
+      </a>
+      <a href="/cards.html" class="nav-item">
+        <i data-lucide="credit-card"></i>
+        <span>Debit Cards</span>
+      </a>
+      <a href="/wallets.html" class="nav-item">
+        <i data-lucide="wallet"></i>
+        <span>Mobile Wallets</span>
+      </a>
+
+      <div class="nav-section-title">Transactions & Budget</div>
+      <a href="/transactions.html" class="nav-item">
+        <i data-lucide="arrow-left-right"></i>
+        <span>Transactions</span>
+      </a>
+      <a href="/budgets.html" class="nav-item">
+        <i data-lucide="pie-chart"></i>
+        <span>Budget Manager</span>
+      </a>
+      <a href="/reports.html" class="nav-item">
+        <i data-lucide="file-text"></i>
+        <span>Reports & Export</span>
+      </a>
+
+      <div class="nav-section-title">Account</div>
+      <a href="/settings.html" class="nav-item">
+        <i data-lucide="settings"></i>
+        <span>Settings</span>
+      </a>
+      <a href="/login.html" class="nav-item">
+        <i data-lucide="log-out"></i>
+        <span>Sign Out</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-snippet">
+        <div class="user-avatar">HR</div>
+        <div class="user-info">
+          <div class="user-name">H. R. Manik</div>
+          <div class="user-role">Apitex Platinum</div>
+        </div>
+        <a href="/settings.html" title="Settings" style="color: var(--peach); padding: 4px;">
+          <i data-lucide="sliders-horizontal" style="width: 16px; height: 16px;"></i>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Viewport -->
+  <main class="app-main">
+    <!-- Top Navy Header -->
+    <header class="app-header">
+      <div class="header-left">
+        <button class="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <i data-lucide="menu"></i>
+        </button>
+        <div class="header-breadcrumb">
+          <span>Banking</span>
+          <span style="color: rgba(255, 255, 255, 0.4);">/</span>
+          <span class="current">Dashboard</span>
+        </div>
+        <div class="demo-banner">
+          <i data-lucide="shield" style="width: 13px; height: 13px;"></i>
+          <span>APITEX FINTECH</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- Currency Selector -->
+        <div class="currency-selector" title="Change Base Currency">
+          <button class="currency-btn active" data-currency="BDT">BDT ৳</button>
+          <button class="currency-btn" data-currency="USD">USD $</button>
+          <button class="currency-btn" data-currency="EUR">EUR €</button>
+        </div>
+
+        <!-- Notification Bell -->
+        <button class="header-btn" title="Notifications" onclick="openModal('modal-notifications')">
+          <i data-lucide="bell" style="width: 18px; height: 18px;"></i>
+          <span class="notification-badge-dot"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Dashboard Content Area -->
+    <div class="dashboard-container">
+      
+      <!-- 1. Apitex Hero Navy Section -->
+      <section class="apitex-hero-banner">
+        <div class="hero-top-row">
+          <div class="hero-user-meta">
+            <div class="hero-avatar">HR</div>
+            <div>
+              <div id="hero-greeting-text" class="hero-greeting-sub">Good day,</div>
+              <div class="hero-greeting-name">H. R. Manik</div>
+            </div>
+          </div>
+          <div class="hero-actions-right">
+            <button class="btn btn-sm btn-peach" onclick="openModal('modal-transfer-money')">
+              <i data-lucide="send" style="width: 14px; height: 14px;"></i>
+              <span>Transfer</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Apitex Balance & Quick Actions Split -->
+        <div class="hero-balance-section">
+          <!-- White Floating Balance Card -->
+          <div class="balance-display-card">
+            <div class="balance-card-header">
+              <span class="balance-label-pill">
+                <i data-lucide="shield-check" style="width: 13px; height: 13px;"></i>
+                <span>Total Available Balance</span>
+              </span>
+              <button class="balance-eye-toggle" onclick="toggleBalanceVisibility()" title="Toggle Balance Privacy">
+                <i id="balance-eye-icon" data-lucide="eye" style="width: 18px; height: 18px;"></i>
+              </button>
+            </div>
+            
+            <div class="balance-value-row">
+              <div id="hero-total-balance" class="hero-main-balance font-mono">৳ 0.00</div>
+              <span class="balance-growth-badge">
+                <i data-lucide="trending-up" style="width: 13px; height: 13px;"></i>
+                <span>+12.8%</span>
+              </span>
+            </div>
+
+            <div style="font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; justify-content: space-between;">
+              <span>Combined 4 Accounts & 3 Mobile Wallets</span>
+              <span style="font-weight: 600; color: var(--navy-primary);">Verified & Active</span>
+            </div>
+          </div>
+
+          <!-- 4 Apitex Quick Action Tiles -->
+          <div class="quick-actions-strip">
+            <button class="action-tile send" onclick="openModal('modal-transfer-money')">
+              <div class="action-tile-icon">
+                <i data-lucide="arrow-up-right" style="width: 20px; height: 20px;"></i>
+              </div>
+              <span>Send</span>
+            </button>
+            <button class="action-tile deposit" onclick="openModal('modal-add-money')">
+              <div class="action-tile-icon">
+                <i data-lucide="arrow-down-left" style="width: 20px; height: 20px;"></i>
+              </div>
+              <span>Deposit</span>
+            </button>
+            <button class="action-tile withdraw" onclick="openModal('modal-withdraw-money')">
+              <div class="action-tile-icon">
+                <i data-lucide="banknote" style="width: 20px; height: 20px;"></i>
+              </div>
+              <span>Withdraw</span>
+            </button>
+            <button class="action-tile exchange" onclick="openModal('modal-exchange')">
+              <div class="action-tile-icon">
+                <i data-lucide="refresh-cw" style="width: 20px; height: 20px;"></i>
+              </div>
+              <span>Exchange</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Cashflow Inflow vs Outflow Mini Cards -->
+      <section class="cashflow-kpi-row">
+        <div class="cashflow-card">
+          <div class="cashflow-info">
+            <span class="cashflow-label">Monthly Inflow</span>
+            <span id="cashflow-income-val" class="cashflow-amount income font-mono">৳ 0.00</span>
+            <span style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Salary & Inward Remittances</span>
+          </div>
+          <div class="cashflow-icon-circle income">
+            <i data-lucide="arrow-down-left" style="width: 22px; height: 22px;"></i>
+          </div>
+        </div>
+
+        <div class="cashflow-card">
+          <div class="cashflow-info">
+            <span class="cashflow-label">Monthly Outflow</span>
+            <span id="cashflow-expense-val" class="cashflow-amount expense font-mono">৳ 0.00</span>
+            <span style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Cards, ATM & Bills</span>
+          </div>
+          <div class="cashflow-icon-circle expense">
+            <i data-lucide="arrow-up-right" style="width: 22px; height: 22px;"></i>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Quick Money Transfer Contacts (Apitex Mobile UI feature) -->
+      <section class="card quick-transfer-card">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div style="font-family: var(--font-display); font-size: 16px; font-weight: 700;">
+            Quick Money Transfer
+          </div>
+          <span style="font-size: 12px; color: var(--text-secondary);">One-tap instant P2P</span>
+        </div>
+        
+        <!-- Horizontal Scrollable Avatars -->
+        <div id="quick-contacts-row" class="contacts-scroll-row">
+          <!-- Dynamically populated via dashboard.js -->
+        </div>
+      </section>
+
+      <!-- 4. Split: Analytics Chart & Luxury Debit Card -->
+      <section class="card-section-split">
+        <!-- Monthly Cashflow Line Chart -->
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+            <div>
+              <h2 style="font-family: var(--font-display); font-size: 17px; font-weight: 700;">Financial Overview</h2>
+              <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">Inflow vs Outflow momentum</p>
+            </div>
+            <div class="pill-selector">
+              <span class="pill-option active">6 Months</span>
+              <span class="pill-option" onclick="showToast('Filtered by 2026', 'info')">Year</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="apitexFinancialChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Apitex Luxury Debit Card Showcase -->
+        <div class="card luxury-card-container">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+            <div>
+              <h2 style="font-family: var(--font-display); font-size: 17px; font-weight: 700;">Primary Card</h2>
+              <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">Contactless Visa Signature</p>
+            </div>
+            <a href="/cards.html" style="font-size: 12px; font-weight: 700; color: var(--coral-accent);">Manage &rarr;</a>
+          </div>
+
+          <div id="apitex-debit-card-slot">
+            <!-- Dynamically rendered -->
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 16px; font-size: 12px; color: var(--text-secondary); padding-top: 14px; border-top: 1px solid var(--border-light);">
+            <span>Daily POS Limit: ৳ 1,00,000</span>
+            <span style="font-weight: 700; color: var(--status-success); display: flex; align-items: center; gap: 4px;">
+              <i data-lucide="check-circle-2" style="width: 14px; height: 14px;"></i>
+              Active & Protected
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Connected Bank Accounts Strip -->
+      <section class="card" style="padding: 22px 26px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
+          <div>
+            <h2 style="font-family: var(--font-display); font-size: 17px; font-weight: 700;">Your Bank Accounts</h2>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">Registered Bangladesh & international banks</p>
+          </div>
+          <a href="/accounts.html" class="btn btn-sm btn-secondary">
+            <span>View All</span>
+            <i data-lucide="arrow-right" style="width: 12px; height: 12px;"></i>
+          </a>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px;">
+          <div class="card-peach-soft" style="padding: 16px 20px; border-radius: var(--radius-md);">
+            <div style="font-size: 12px; color: var(--navy-primary); font-weight: 700;">BRAC Bank PLC</div>
+            <div class="font-mono" style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">•••• •••• 5821</div>
+            <div class="font-mono" style="font-size: 18px; font-weight: 800; color: var(--navy-primary); margin-top: 8px;">৳ 3,45,000.00</div>
+          </div>
+          <div class="card-peach-soft" style="padding: 16px 20px; border-radius: var(--radius-md);">
+            <div style="font-size: 12px; color: var(--navy-primary); font-weight: 700;">Dutch-Bangla Bank</div>
+            <div class="font-mono" style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">•••• •••• 9204</div>
+            <div class="font-mono" style="font-size: 18px; font-weight: 800; color: var(--navy-primary); margin-top: 8px;">৳ 2,15,500.00</div>
+          </div>
+          <div class="card-peach-soft" style="padding: 16px 20px; border-radius: var(--radius-md);">
+            <div style="font-size: 12px; color: var(--navy-primary); font-weight: 700;">Eastern Bank PLC</div>
+            <div class="font-mono" style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">•••• •••• 1432</div>
+            <div class="font-mono" style="font-size: 18px; font-weight: 800; color: var(--navy-primary); margin-top: 8px;">৳ 1,82,750.00</div>
+          </div>
+          <div class="card-peach-soft" style="padding: 16px 20px; border-radius: var(--radius-md);">
+            <div style="font-size: 12px; color: var(--navy-primary); font-weight: 700;">Southeast Bank PLC</div>
+            <div class="font-mono" style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">•••• •••• 7719</div>
+            <div class="font-mono" style="font-size: 18px; font-weight: 800; color: var(--navy-primary); margin-top: 8px;">৳ 1,02,000.00</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Recent Activity List -->
+      <section class="card" style="padding: 24px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <h2 style="font-family: var(--font-display); font-size: 17px; font-weight: 700;">Recent Transactions</h2>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">Tap on any row to view verified receipt</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <div class="pill-selector">
+              <button class="pill-option tx-filter-pill active" data-filter="All">All</button>
+              <button class="pill-option tx-filter-pill" data-filter="Deposit">Inflow</button>
+              <button class="pill-option tx-filter-pill" data-filter="Withdrawal">Outflow</button>
+            </div>
+            <a href="/transactions.html" class="btn btn-sm btn-peach">
+              <span>View All</span>
+              <i data-lucide="arrow-right" style="width: 12px; height: 12px;"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Transactions Container -->
+        <div id="recent-transactions-list" style="display: flex; flex-direction: column;">
+          <!-- Dynamically populated via dashboard.js -->
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- Mobile Apitex Floating Navy Bottom Navigation -->
+<div class="mobile-bottom-nav">
+  <a href="/index.html" class="mobile-nav-link active">
+    <i data-lucide="layout-dashboard"></i>
+    <span>Home</span>
+  </a>
+  <a href="/accounts.html" class="mobile-nav-link">
+    <i data-lucide="landmark"></i>
+    <span>Accounts</span>
+  </a>
+  <a href="/cards.html" class="mobile-nav-link">
+    <i data-lucide="credit-card"></i>
+    <span>Cards</span>
+  </a>
+  <a href="/wallets.html" class="mobile-nav-link">
+    <i data-lucide="wallet"></i>
+    <span>Wallets</span>
+  </a>
+  <a href="/transactions.html" class="mobile-nav-link">
+    <i data-lucide="arrow-left-right"></i>
+    <span>Activity</span>
+  </a>
+</div>
+
+<!-- ==========================================================================
+     APITEX MODALS
+     ========================================================================== -->
+
+<!-- 1. Add Money / Deposit Modal -->
+<div id="modal-add-money" class="modal-overlay">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">
+        <i data-lucide="plus-circle" style="color: var(--coral-accent);"></i>
+        <span>Deposit Funds</span>
+      </div>
+      <button class="modal-close" type="button">&times;</button>
+    </div>
+    <form id="form-add-money">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="add-money-amount">Deposit Amount (BDT)</label>
+          <div class="input-with-icon">
+            <span class="input-icon-leading font-mono">৳</span>
+            <input type="number" id="add-money-amount" placeholder="e.g. 50000" min="1" step="any" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="add-money-account">Target Account</label>
+          <select id="add-money-account" required></select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="add-money-category">Category</label>
+          <select id="add-money-category">
+            <option value="Salary">Salary Credit</option>
+            <option value="Freelance">Freelance Remittance</option>
+            <option value="Investment">Investment Return</option>
+            <option value="Business">Business Revenue</option>
+            <option value="Other Income">Other Income</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="add-money-desc">Description</label>
+          <input type="text" id="add-money-desc" placeholder="e.g. Monthly Consulting Fee">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-modal-cancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">Confirm Deposit</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 2. Withdraw Money Modal -->
+<div id="modal-withdraw-money" class="modal-overlay">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">
+        <i data-lucide="arrow-up-right" style="color: var(--coral-accent);"></i>
+        <span>Withdraw Money</span>
+      </div>
+      <button class="modal-close" type="button">&times;</button>
+    </div>
+    <form id="form-withdraw-money">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="withdraw-amount">Amount (BDT)</label>
+          <div class="input-with-icon">
+            <span class="input-icon-leading font-mono">৳</span>
+            <input type="number" id="withdraw-amount" placeholder="e.g. 10000" min="1" step="any" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="withdraw-account">Source Account</label>
+          <select id="withdraw-account" required></select>
+        </div>
+
+        <div class="form-group">
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px;">
+            <input type="checkbox" id="withdraw-is-atm" checked style="width: 16px; height: 16px;">
+            <span>This is an ATM Withdrawal (includes ৳15 interbank NPSB fee)</span>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="withdraw-desc">Purpose / Location</label>
+          <input type="text" id="withdraw-desc" placeholder="e.g. ATM Gulshan 2 Booth">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-modal-cancel">Cancel</button>
+        <button type="submit" class="btn btn-coral">Process Payout</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 3. Transfer Money Modal -->
+<div id="modal-transfer-money" class="modal-overlay">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">
+        <i data-lucide="send" style="color: var(--navy-primary);"></i>
+        <span>Transfer Funds</span>
+      </div>
+      <button class="modal-close" type="button">&times;</button>
+    </div>
+    <form id="form-transfer-money">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="transfer-from-account">From Account</label>
+          <select id="transfer-from-account" required></select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="transfer-to-account">To Account</label>
+          <select id="transfer-to-account" required></select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="transfer-amount">Amount (BDT)</label>
+          <div class="input-with-icon">
+            <span class="input-icon-leading font-mono">৳</span>
+            <input type="number" id="transfer-amount" placeholder="e.g. 25000" min="1" step="any" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="transfer-note">Transfer Note</label>
+          <input type="text" id="transfer-note" placeholder="e.g. Family savings remittance">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-modal-cancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">Confirm Transfer</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 4. Quick Contact Modal -->
+<div id="modal-add-contact" class="modal-overlay">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">
+        <i data-lucide="user-plus" style="color: var(--coral-accent);"></i>
+        <span>Add Quick Contact</span>
+      </div>
+      <button class="modal-close" type="button">&times;</button>
+    </div>
+    <form id="form-add-contact">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="contact-name-input">Contact Name</label>
+          <input type="text" id="contact-name-input" placeholder="e.g. Rafiq Ahmed" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="contact-phone-input">Phone / Account Number</label>
+          <input type="text" id="contact-phone-input" placeholder="e.g. 01712-345678" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-modal-cancel">Cancel</button>
+        <button type="submit" class="btn btn-peach">Save Contact</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 5. Currency Exchange Calculator Modal -->
+<div id="modal-exchange" class="modal-overlay">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">
+        <i data-lucide="refresh-cw" style="color: #2563EB;"></i>
+        <span>Currency Exchange Calculator</span>
+      </div>
+      <button class="modal-close" type="button">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">You Send (BDT)</label>
+        <div class="input-with-icon">
+          <span class="input-icon-leading font-mono">৳</span>
+          <input type="number" id="calc-bdt-in" value="12000" oninput="calculateExchange(this.value)">
+        </div>
+      </div>
+      <div style="background: var(--peach-subtle); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-light); font-size: 13px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+          <span>Exchange Rate:</span>
+          <span class="font-mono" style="font-weight: 700;">1 USD = ৳ 120.00</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+          <span>Transfer Fee:</span>
+          <span style="color: var(--status-success); font-weight: 700;">৳ 0.00 (Zero Fee)</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 15px; border-top: 1px solid var(--border-light); padding-top: 8px; margin-top: 8px;">
+          <span>Recipient Gets:</span>
+          <span id="calc-usd-out" class="font-mono" style="color: var(--navy-primary);">$ 100.00 USD</span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary btn-modal-cancel">Close</button>
+      <button type="button" class="btn btn-primary" onclick="showToast('Exchange simulation saved', 'success'); closeModal('modal-exchange');">Lock In Rate</button>
+    </div>
+  </div>
+</div>
+
+<!-- 6. Transaction Receipt Details Modal -->
+<div id="modal-tx-receipt" class="modal-overlay">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">
+        <i data-lucide="receipt" style="color: var(--coral-accent);"></i>
+        <span>Transaction Receipt</span>
+      </div>
+      <button class="modal-close" type="button">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div style="text-align: center; padding: 10px 0 16px; border-bottom: 1px dashed var(--border-light);">
+        <div style="font-size: 12px; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 0.5px;">Amount</div>
+        <div id="receipt-amount" class="font-mono" style="font-size: 32px; font-weight: 800; margin: 4px 0;">৳ 0.00</div>
+        <span class="status-badge" style="background: var(--status-success-light); color: var(--status-success); font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 9999px;">
+          Verified & Completed
+        </span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; font-size: 13px;">
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-secondary);">Transaction ID:</span>
+          <span id="receipt-id" class="font-mono" style="font-weight: 700;"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-secondary);">Date & Time:</span>
+          <span id="receipt-date" style="font-weight: 600;"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-secondary);">Type:</span>
+          <span id="receipt-type" style="font-weight: 600;"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-secondary);">Category:</span>
+          <span id="receipt-category" style="font-weight: 600;"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-secondary);">Account / Channel:</span>
+          <span id="receipt-source" style="font-weight: 600;"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-secondary);">Destination:</span>
+          <span id="receipt-dest" style="font-weight: 600;"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-secondary);">Description:</span>
+          <span id="receipt-desc" style="font-weight: 600;"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-secondary);">Notes:</span>
+          <span id="receipt-notes" style="font-weight: 600; color: var(--text-primary);"></span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary btn-modal-cancel">Close</button>
+      <button type="button" class="btn btn-primary" onclick="window.print()">
+        <i data-lucide="printer" style="width: 14px; height: 14px;"></i>
+        <span>Print Receipt</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 7. Notification Drawer / Modal -->
+<div id="modal-notifications" class="modal-overlay">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">
+        <i data-lucide="bell" style="color: var(--coral-accent);"></i>
+        <span>Notifications</span>
+      </div>
+      <button class="modal-close" type="button">&times;</button>
+    </div>
+    <div class="modal-body" style="padding: 16px 24px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="card-peach-soft" style="padding: 14px 16px; border-radius: var(--radius-md);">
+          <div style="font-weight: 700; font-size: 13px; color: var(--navy-primary);">Salary Credited</div>
+          <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">৳145,000 deposited to BRAC Bank (•••5821)</p>
+          <span style="font-size: 11px; color: var(--coral-accent); font-weight: 600;">Yesterday</span>
+        </div>
+        <div class="card-peach-soft" style="padding: 14px 16px; border-radius: var(--radius-md);">
+          <div style="font-weight: 700; font-size: 13px; color: var(--navy-primary);">bKash Electricity Paid</div>
+          <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">৳4,500 electricity payment token #48201 confirmed</p>
+          <span style="font-size: 11px; color: var(--text-secondary);">2 days ago</span>
+        </div>
+        <div class="card-peach-soft" style="padding: 14px 16px; border-radius: var(--radius-md);">
+          <div style="font-weight: 700; font-size: 13px; color: var(--navy-primary);">Card Security Alert</div>
+          <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">Contactless payment enabled for Visa Signature •••4892</p>
+          <span style="font-size: 11px; color: var(--text-secondary);">3 days ago</span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary btn-modal-cancel">Close</button>
+      <button type="button" class="btn btn-peach" onclick="showToast('All notifications marked as read', 'info'); closeModal('modal-notifications');">Mark All Read</button>
+    </div>
+  </div>
+</div>
+
+<script src="/js/app.js"></script>
+<script src="/js/dashboard.js"></script>
+<script>
+  function calculateExchange(bdtVal) {
+    const bdt = parseFloat(bdtVal) || 0;
+    const usd = (bdt / 120).toFixed(2);
+    document.getElementById('calc-usd-out').textContent = `$ ${usd} USD`;
+  }
+</script>
+</body>
+</html>

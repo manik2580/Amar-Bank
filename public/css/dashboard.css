@@ -1,0 +1,699 @@
+/* ==========================================================================
+   MyBank – Apitex Dashboard Specific Stylesheet
+   Hero Navy Banner, Floating Balance Card, Quick Contacts, & Card Vault
+   ========================================================================== */
+
+.dashboard-container {
+  padding: 24px 32px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   Apitex Hero Navy Banner
+   ========================================================================== */
+.apitex-hero-banner {
+  background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-secondary) 100%);
+  border-radius: var(--radius-xl);
+  padding: 32px 36px;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-navy);
+}
+
+.apitex-hero-banner::after {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 215, 193, 0.16) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-user-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hero-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--peach) 0%, var(--coral-accent) 100%);
+  color: var(--navy-primary);
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.hero-greeting-sub {
+  font-size: 12px;
+  color: var(--peach);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.hero-greeting-name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-top: 2px;
+}
+
+.hero-actions-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   Apitex Balance Card
+   ========================================================================== */
+.hero-balance-section {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 24px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.balance-display-card {
+  background: #FFFFFF;
+  color: var(--text-primary);
+  border-radius: var(--radius-lg);
+  padding: 26px 30px;
+  box-shadow: 0 16px 36px rgba(8, 7, 39, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.balance-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.balance-label-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--peach-light);
+  color: var(--navy-primary);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.balance-eye-toggle {
+  color: var(--text-secondary);
+  font-size: 16px;
+  padding: 4px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+}
+
+.balance-eye-toggle:hover {
+  color: var(--coral-accent);
+}
+
+.balance-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.hero-main-balance {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--navy-primary);
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.balance-growth-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--status-success);
+  background: var(--status-success-light);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.quick-actions-strip {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.action-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 14px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--border-light);
+  color: var(--navy-primary);
+  font-size: 13px;
+  font-weight: 700;
+  transition: var(--transition);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(8, 7, 39, 0.04);
+}
+
+.action-tile-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.action-tile.send .action-tile-icon {
+  background: var(--peach);
+  color: var(--navy-primary);
+}
+
+.action-tile.deposit .action-tile-icon {
+  background: var(--navy-primary);
+  color: #FFFFFF;
+}
+
+.action-tile.withdraw .action-tile-icon {
+  background: var(--coral-light);
+  color: var(--coral-accent);
+}
+
+.action-tile.exchange .action-tile-icon {
+  background: #E8F4FD;
+  color: #2563EB;
+}
+
+.action-tile:hover {
+  background: #FFFFFF;
+  border-color: var(--peach);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ==========================================================================
+   Income vs Expense Strip
+   ========================================================================== */
+.cashflow-kpi-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.cashflow-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.cashflow-card:hover {
+  box-shadow: var(--shadow-card);
+  transform: translateY(-2px);
+}
+
+.cashflow-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.cashflow-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cashflow-amount {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+  margin-top: 4px;
+}
+
+.cashflow-amount.income {
+  color: var(--status-success);
+}
+
+.cashflow-amount.expense {
+  color: var(--coral-accent);
+}
+
+.cashflow-icon-circle {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cashflow-icon-circle.income {
+  background: var(--status-success-light);
+  color: var(--status-success);
+}
+
+.cashflow-icon-circle.expense {
+  background: var(--coral-light);
+  color: var(--coral-accent);
+}
+
+/* ==========================================================================
+   Quick Transfer Contacts (Apitex Mobile UI feature)
+   ========================================================================== */
+.quick-transfer-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contacts-scroll-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  overflow-x: auto;
+  padding: 6px 2px 10px;
+}
+
+.contact-avatar-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 68px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: var(--transition);
+}
+
+.contact-avatar-bubble {
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius-full);
+  background: var(--peach-light);
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 4px 12px rgba(8, 7, 39, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy-primary);
+  transition: var(--transition);
+}
+
+.contact-avatar-btn:hover .contact-avatar-bubble {
+  transform: scale(1.08);
+  border-color: var(--coral-accent);
+  box-shadow: 0 6px 18px rgba(255, 139, 115, 0.25);
+}
+
+.contact-add-bubble {
+  background: var(--navy-primary);
+  color: #FFFFFF;
+  border: 2px dashed var(--peach);
+}
+
+.contact-name-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+/* ==========================================================================
+   Realistic Apitex Luxury Debit Card
+   ========================================================================== */
+.card-section-split {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 24px;
+}
+
+.luxury-card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.apitex-debit-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.586 / 1;
+  border-radius: var(--radius-xl);
+  padding: 26px 28px;
+  background: linear-gradient(135deg, #0D0B36 0%, #171442 50%, #2A1F45 100%);
+  color: #FFFFFF;
+  box-shadow: 0 20px 45px -8px rgba(8, 7, 39, 0.35);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border: 1px solid rgba(255, 215, 193, 0.25);
+}
+
+.apitex-debit-card::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 139, 115, 0.3) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.apitex-debit-card::after {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  left: 20%;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 215, 193, 0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.card-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.card-brand-label {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.card-nickname-sub {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--peach);
+  letter-spacing: 0.5px;
+}
+
+.card-chip-nfc-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+  margin: 10px 0;
+}
+
+.emv-chip {
+  width: 44px;
+  height: 32px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #FFE2B8 0%, #D4A86A 50%, #B88544 100%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  position: relative;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.emv-chip::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.emv-chip::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.card-number-display {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: #FFFFFF;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 2;
+  margin-bottom: 6px;
+}
+
+.card-bottom-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.card-meta-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-meta-title {
+  font-size: 9px;
+  color: var(--peach);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.card-meta-value {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.card-logo-visa {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.5px;
+  color: #FFFFFF;
+}
+
+.card-logo-mc {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 40px;
+  height: 24px;
+}
+
+.mc-red {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #EB001B;
+  position: absolute;
+  left: 0;
+}
+
+.mc-orange {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #F79E1B;
+  position: absolute;
+  right: 0;
+  opacity: 0.88;
+}
+
+/* ==========================================================================
+   Chart & Table Section
+   ========================================================================== */
+.chart-box {
+  height: 260px;
+  position: relative;
+  width: 100%;
+}
+
+.pill-selector {
+  display: inline-flex;
+  align-items: center;
+  background: var(--peach-subtle);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
+  padding: 3px;
+}
+
+.pill-option {
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-radius: var(--radius-full);
+  transition: var(--transition);
+}
+
+.pill-option.active {
+  background: var(--navy-primary);
+  color: #FFFFFF;
+}
+
+/* Transactions Table & List */
+.tx-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.tx-item-row:last-child {
+  border-bottom: none;
+}
+
+.tx-item-row:hover {
+  background: var(--peach-subtle);
+}
+
+.tx-leading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.tx-icon-bubble {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tx-icon-bubble.income {
+  background: var(--status-success-light);
+  color: var(--status-success);
+}
+
+.tx-icon-bubble.expense {
+  background: var(--peach-light);
+  color: var(--coral-accent);
+}
+
+.tx-icon-bubble.transfer {
+  background: var(--navy-subtle);
+  color: #FFFFFF;
+}
+
+.tx-details-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.tx-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.tx-subtitle {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.tx-amount-col {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.tx-amount-value {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.tx-amount-value.positive {
+  color: var(--status-success);
+}
+
+.tx-amount-value.negative {
+  color: var(--navy-primary);
+}
+
+.tx-status-pill {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--status-success-light);
+  color: var(--status-success);
+  margin-top: 3px;
+}

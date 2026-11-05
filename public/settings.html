@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings – MyBank</title>
+  <meta name="description" content="Manage user preferences, default currency, security settings, and local database backup.">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+<div class="app-container">
+  <aside class="app-sidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo">
+        <div class="brand-icon">
+          <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
+        </div>
+        <div class="brand-name">My<span>Bank</span></div>
+      </div>
+      <span class="brand-badge">APITEX</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Overview</div>
+      <a href="/index.html" class="nav-item">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="/analytics.html" class="nav-item">
+        <i data-lucide="line-chart"></i>
+        <span>Financial Analytics</span>
+      </a>
+
+      <div class="nav-section-title">Banking & Cards</div>
+      <a href="/accounts.html" class="nav-item">
+        <i data-lucide="landmark"></i>
+        <span>Bank Accounts</span>
+      </a>
+      <a href="/cards.html" class="nav-item">
+        <i data-lucide="credit-card"></i>
+        <span>Debit Cards</span>
+      </a>
+      <a href="/wallets.html" class="nav-item">
+        <i data-lucide="wallet"></i>
+        <span>Mobile Wallets</span>
+      </a>
+
+      <div class="nav-section-title">Transactions & Budget</div>
+      <a href="/transactions.html" class="nav-item">
+        <i data-lucide="arrow-left-right"></i>
+        <span>Transactions</span>
+      </a>
+      <a href="/budgets.html" class="nav-item">
+        <i data-lucide="pie-chart"></i>
+        <span>Budget Manager</span>
+      </a>
+      <a href="/reports.html" class="nav-item">
+        <i data-lucide="file-text"></i>
+        <span>Reports & Export</span>
+      </a>
+
+      <div class="nav-section-title">Account</div>
+      <a href="/settings.html" class="nav-item active">
+        <i data-lucide="settings"></i>
+        <span>Settings</span>
+      </a>
+      <a href="/login.html" class="nav-item">
+        <i data-lucide="log-out"></i>
+        <span>Sign Out</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-snippet">
+        <div class="user-avatar">HR</div>
+        <div class="user-info">
+          <div class="user-name">H. R. Manik</div>
+          <div class="user-role">Apitex Platinum</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="app-main">
+    <header class="app-header">
+      <div class="header-left">
+        <button class="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <i data-lucide="menu"></i>
+        </button>
+        <div class="header-breadcrumb">
+          <span>Banking</span>
+          <span style="color: rgba(255, 255, 255, 0.4);">/</span>
+          <span class="current">Preferences & Security</span>
+        </div>
+        <div class="demo-banner">
+          <i data-lucide="shield" style="width: 13px; height: 13px;"></i>
+          <span>APITEX SETTINGS</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="dashboard-container">
+      <div>
+        <h1 style="font-family: var(--font-display); font-size: 24px; font-weight: 800; color: var(--navy-primary);">Account & Security Settings</h1>
+        <p style="color: var(--text-secondary); font-size: 13px; margin-top: 4px;">
+          Manage personal identity, currency formats, biometric protection, and full database archive.
+        </p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 24px; max-width: 780px;">
+        <!-- User Profile Card -->
+        <div class="card" style="padding: 26px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+            <i data-lucide="user" style="color: var(--coral-accent); width: 20px; height: 20px;"></i>
+            <h2 style="font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--navy-primary);">Personal Identity</h2>
+          </div>
+          <form id="form-personal-identity" onsubmit="saveProfile(event)">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div class="form-group">
+                <label class="form-label" for="settings-name">Full Legal Name</label>
+                <input type="text" id="settings-name" placeholder="Enter your full name" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="settings-email">Email Address</label>
+                <input type="email" id="settings-email" placeholder="name@domain.com" required>
+              </div>
+            </div>
+            <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+              <button type="submit" class="btn btn-primary btn-sm">
+                <i data-lucide="check" style="width: 14px; height: 14px;"></i>
+                <span>Save Profile Changes</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Currency & Display Settings -->
+        <div class="card" style="padding: 26px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+            <i data-lucide="globe" style="color: var(--coral-accent); width: 20px; height: 20px;"></i>
+            <h2 style="font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--navy-primary);">Currency & Region</h2>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="settings-default-cur">Primary Display Currency</label>
+            <select id="settings-default-cur" onchange="updateDefaultCurrency(this.value)">
+              <option value="BDT">Bangladeshi Taka (BDT ৳)</option>
+              <option value="USD">US Dollar (USD $)</option>
+            </select>
+            <span class="form-hint">All balances, summaries, and charts automatically recalculate.</span>
+          </div>
+        </div>
+
+        <!-- Security & Passcode -->
+        <div class="card" style="padding: 26px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+            <i data-lucide="lock" style="color: var(--coral-accent); width: 20px; height: 20px;"></i>
+            <h2 style="font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--navy-primary);">Security & Passcode</h2>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <label style="display: flex; align-items: center; justify-content: space-between; font-size: 14px; cursor: pointer;">
+              <span>Require PIN or Biometrics for transfers</span>
+              <input type="checkbox" id="setting-require-pin" onchange="updateSecurityToggle('requirePin', this.checked)" style="width: 18px; height: 18px;">
+            </label>
+            <label style="display: flex; align-items: center; justify-content: space-between; font-size: 14px; cursor: pointer;">
+              <span>Email notification for ATM and POS transactions</span>
+              <input type="checkbox" id="setting-email-alerts" onchange="updateSecurityToggle('emailAlerts', this.checked)" style="width: 18px; height: 18px;">
+            </label>
+          </div>
+        </div>
+
+        <!-- Database Backup & Restore -->
+        <div class="card" style="padding: 26px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <i data-lucide="hard-drive" style="color: var(--navy-primary); width: 20px; height: 20px;"></i>
+            <h2 style="font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--navy-primary);">Database Backup & Reset</h2>
+          </div>
+          <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 20px;">
+            Download an offline JSON archive of all accounts and records, or reset the database back to clean initial demo data.
+          </p>
+
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <button type="button" class="btn btn-secondary" onclick="exportFullDatabase()">
+              <i data-lucide="download" style="width: 14px; height: 14px;"></i>
+              <span>Download DB Backup (JSON)</span>
+            </button>
+            <button type="button" class="btn btn-danger" onclick="promptResetDemoData()">
+              <i data-lucide="rotate-ccw" style="width: 14px; height: 14px;"></i>
+              <span>Reset to Default Demo State</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Mobile Bottom Navigation -->
+<div class="mobile-bottom-nav">
+  <a href="/index.html" class="mobile-nav-link">
+    <i data-lucide="layout-dashboard"></i>
+    <span>Home</span>
+  </a>
+  <a href="/accounts.html" class="mobile-nav-link">
+    <i data-lucide="landmark"></i>
+    <span>Accounts</span>
+  </a>
+  <a href="/cards.html" class="mobile-nav-link">
+    <i data-lucide="credit-card"></i>
+    <span>Cards</span>
+  </a>
+  <a href="/settings.html" class="mobile-nav-link active">
+    <i data-lucide="settings"></i>
+    <span>Settings</span>
+  </a>
+  <a href="/transactions.html" class="mobile-nav-link">
+    <i data-lucide="arrow-left-right"></i>
+    <span>Activity</span>
+  </a>
+</div>
+
+<script src="/js/app.js"></script>
+<script>
+  function renderSettingsInputs(user, settings) {
+    const nameInput = document.getElementById('settings-name');
+    const emailInput = document.getElementById('settings-email');
+    const curSelect = document.getElementById('settings-default-cur');
+    const pinCheckbox = document.getElementById('setting-require-pin');
+    const emailCheckbox = document.getElementById('setting-email-alerts');
+
+    if (nameInput && !nameInput.matches(':focus')) nameInput.value = user.name || 'H. R. Manik';
+    if (emailInput && !emailInput.matches(':focus')) emailInput.value = user.email || 'official.hrmanik@gmail.com';
+    if (curSelect) curSelect.value = settings.currency || 'BDT';
+    if (pinCheckbox) pinCheckbox.checked = settings.requirePin !== false;
+    if (emailCheckbox) emailCheckbox.checked = settings.emailAlerts !== false;
+  }
+
+  async function loadSettingsPage() {
+    // 1. Initial immediate render from cached local data
+    renderSettingsInputs(BankDB.getUser(), BankDB.getSettings());
+
+    // 2. Asynchronously re-fetch authoritative settings & user identity from SQLite database
+    try {
+      const res = await fetch('/api/settings');
+      if (res.ok) {
+        const data = await res.json();
+        const serverUser = data.user || data.data?.user;
+        const serverSettings = data.settings || data.data?.settings;
+
+        if (serverUser) {
+          BankDB.saveUser(serverUser, false);
+        }
+        if (serverSettings) {
+          BankDB.saveSettings(serverSettings, false);
+        }
+        renderSettingsInputs(BankDB.getUser(), BankDB.getSettings());
+      }
+    } catch (err) {
+      console.warn('Backend SQLite sync note:', err.message);
+    }
+  }
+
+  async function saveProfile(e) {
+    if (e) e.preventDefault();
+    const nameInput = document.getElementById('settings-name');
+    const emailInput = document.getElementById('settings-email');
+
+    const name = nameInput ? nameInput.value.trim() : '';
+    const email = emailInput ? emailInput.value.trim() : '';
+
+    if (!name) {
+      showToast('Please provide your full name', 'error');
+      return;
+    }
+
+    // Persist via PATCH request to settings.js controller (SQLite database)
+    try {
+      const res = await fetch('/api/settings', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email })
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        const updatedUser = data.user || data.data?.user;
+        BankDB.saveUser(updatedUser, false);
+        renderSettingsInputs(BankDB.getUser(), BankDB.getSettings());
+        showToast(`Personal identity updated: ${updatedUser.name}`, 'success');
+      } else {
+        throw new Error(data.error || 'Server rejected identity update');
+      }
+    } catch (err) {
+      console.warn('PATCH error, saving locally:', err);
+      const user = BankDB.getUser();
+      user.name = name;
+      user.email = email;
+      const parts = name.split(' ').filter(Boolean);
+      user.initials = parts.length > 1 ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase() : name.slice(0, 2).toUpperCase();
+      BankDB.saveUser(user, true);
+      showToast(`Personal identity updated: ${name}`, 'success');
+    }
+  }
+
+  async function updateDefaultCurrency(cur) {
+    const s = BankDB.getSettings();
+    s.currency = cur;
+    BankDB.saveSettings(s, true);
+    showToast(`Base currency set to ${cur}`, 'success');
+    window.dispatchEvent(new CustomEvent('currencyChanged', { detail: { currency: cur } }));
+  }
+
+  async function updateSecurityToggle(key, val) {
+    const s = BankDB.getSettings();
+    s[key] = val;
+    BankDB.saveSettings(s, true);
+    showToast('Security preferences updated', 'info');
+  }
+
+  function promptResetDemoData() {
+    showConfirmModal({
+      title: 'Reset All Demo Data?',
+      message: 'This will reset all bank accounts, cards, mobile wallets, and transaction histories back to initial demo data in SQLite. All custom modifications will be cleared.',
+      confirmText: 'Reset All Data',
+      confirmClass: 'btn-danger',
+      onConfirm: async () => {
+        try {
+          await fetch('/api/settings/reset', { method: 'POST' });
+        } catch (e) {}
+        BankDB.resetAll();
+        showToast('All banking records restored to default demo state', 'success');
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      }
+    });
+  }
+
+  function exportFullDatabase() {
+    const dbDump = {
+      version: '2.0.0',
+      theme: 'Apitex Navy & Peach',
+      exportedAt: new Date().toISOString(),
+      accounts: BankDB.getAccounts(),
+      cards: BankDB.getCards(),
+      wallets: BankDB.getWallets(),
+      transactions: BankDB.getTransactions(),
+      contacts: BankDB.getContacts(),
+      user: BankDB.getUser(),
+      settings: BankDB.getSettings()
+    };
+    const blob = new Blob([JSON.stringify(dbDump, null, 2)], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `MyBank_Apitex_Backup_${Date.now()}.json`;
+    link.click();
+    showToast('Database backup downloaded successfully', 'success');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    loadSettingsPage();
+    window.addEventListener('userUpdated', () => {
+      renderSettingsInputs(BankDB.getUser(), BankDB.getSettings());
+    });
+  });
+</script>
+</body>
+</html>

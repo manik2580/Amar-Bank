@@ -1,0 +1,146 @@
+/* ==========================================================================
+   MyBank – Apitex Responsive Stylesheet
+   Mobile-First Optimizations, Floating Bottom Nav & Fluid Layouts
+   ========================================================================== */
+
+/* Medium Desktop & Tablet Landscape (1024px to 1280px) */
+@media (max-width: 1280px) {
+  .hero-balance-section {
+    grid-template-columns: 1fr;
+  }
+
+  .card-section-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tablet (768px to 1024px) */
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 240px;
+  }
+  
+  .dashboard-container {
+    padding: 20px 24px;
+    gap: 20px;
+  }
+  
+  .app-header {
+    padding: 0 24px;
+  }
+}
+
+/* Mobile & Touch Devices (Below 768px) */
+@media (max-width: 768px) {
+  :root {
+    --sidebar-width: 0px;
+    --header-height: 64px;
+  }
+
+  /* Off-canvas mobile drawer */
+  .app-sidebar {
+    position: fixed;
+    top: 0;
+    left: -290px;
+    width: 290px;
+    bottom: 0;
+    z-index: 150;
+    box-shadow: 20px 0 50px rgba(8, 7, 39, 0.4);
+    transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .app-sidebar.mobile-open {
+    left: 0;
+  }
+
+  .sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 7, 39, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 140;
+  }
+
+  .sidebar-backdrop.active {
+    display: block;
+  }
+
+  .app-main {
+    margin-left: 0;
+    padding-bottom: 90px; /* Space for Apitex floating bottom nav */
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background: var(--navy-secondary);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .header-breadcrumb {
+    display: none;
+  }
+
+  .app-header {
+    padding: 0 16px;
+  }
+
+  .dashboard-container {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .apitex-hero-banner {
+    padding: 22px 18px;
+    border-radius: var(--radius-lg);
+  }
+
+  .hero-avatar {
+    width: 44px;
+    height: 44px;
+    font-size: 15px;
+  }
+
+  .hero-greeting-name {
+    font-size: 18px;
+  }
+
+  .balance-display-card {
+    padding: 18px;
+  }
+
+  .hero-main-balance {
+    font-size: 28px;
+  }
+
+  .cashflow-kpi-row {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-actions-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mobile-bottom-nav {
+    display: flex;
+  }
+
+  .modal-dialog {
+    max-height: 94vh;
+    border-radius: var(--radius-lg);
+  }
+
+  .modal-body {
+    padding: 20px;
+  }
+
+  .modal-header, .modal-footer {
+    padding: 16px 20px;
+  }
+}

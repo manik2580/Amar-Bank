@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transactions – MyBank</title>
+  <meta name="description" content="View, search, filter, and export all banking transactions, ATM withdrawals, and mobile wallet payments.">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+<div class="app-container">
+  <aside class="app-sidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo">
+        <div class="brand-icon">
+          <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
+        </div>
+        <div class="brand-name">My<span>Bank</span></div>
+      </div>
+      <span class="brand-badge">APITEX</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Overview</div>
+      <a href="/index.html" class="nav-item">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="/analytics.html" class="nav-item">
+        <i data-lucide="line-chart"></i>
+        <span>Financial Analytics</span>
+      </a>
+
+      <div class="nav-section-title">Banking & Cards</div>
+      <a href="/accounts.html" class="nav-item">
+        <i data-lucide="landmark"></i>
+        <span>Bank Accounts</span>
+      </a>
+      <a href="/cards.html" class="nav-item">
+        <i data-lucide="credit-card"></i>
+        <span>Debit Cards</span>
+      </a>
+      <a href="/wallets.html" class="nav-item">
+        <i data-lucide="wallet"></i>
+        <span>Mobile Wallets</span>
+      </a>
+
+      <div class="nav-section-title">Transactions & Budget</div>
+      <a href="/transactions.html" class="nav-item active">
+        <i data-lucide="arrow-left-right"></i>
+        <span>Transactions</span>
+      </a>
+      <a href="/budgets.html" class="nav-item">
+        <i data-lucide="pie-chart"></i>
+        <span>Budget Manager</span>
+      </a>
+      <a href="/reports.html" class="nav-item">
+        <i data-lucide="file-text"></i>
+        <span>Reports & Export</span>
+      </a>
+
+      <div class="nav-section-title">Account</div>
+      <a href="/settings.html" class="nav-item">
+        <i data-lucide="settings"></i>
+        <span>Settings</span>
+      </a>
+      <a href="/login.html" class="nav-item">
+        <i data-lucide="log-out"></i>
+        <span>Sign Out</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-snippet">
+        <div class="user-avatar">HR</div>
+        <div class="user-info">
+          <div class="user-name">H. R. Manik</div>
+          <div class="user-role">Apitex Platinum</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="app-main">
+    <header class="app-header">
+      <div class="header-left">
+        <button class="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <i data-lucide="menu"></i>
+        </button>
+        <div class="header-breadcrumb">
+          <span>Banking</span>
+          <span style="color: rgba(255, 255, 255, 0.4);">/</span>
+          <span class="current">Transactions Ledger</span>
+        </div>
+        <div class="demo-banner">
+          <i data-lucide="shield" style="width: 13px; height: 13px;"></i>
+          <span>APITEX LEDGER</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <button class="btn btn-secondary btn-sm" onclick="exportTransactionsCSV()">
+          <i data-lucide="download" style="width: 14px; height: 14px;"></i>
+          <span>Export CSV</span>
+        </button>
+        <button class="btn btn-peach btn-sm" onclick="openModal('modal-add-tx')">
+          <i data-lucide="plus" style="width: 14px; height: 14px;"></i>
+          <span>Log Activity</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="dashboard-container">
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <h1 style="font-family: var(--font-display); font-size: 24px; font-weight: 800; color: var(--navy-primary);">Transaction Activity</h1>
+          <p style="color: var(--text-secondary); font-size: 13px; margin-top: 4px;">
+            Search, filter, inspect receipts, and categorize all banking and MFS transfers.
+          </p>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="openModal('modal-add-tx')">
+          <i data-lucide="plus" style="width: 14px; height: 14px;"></i>
+          <span>New Entry</span>
+        </button>
+      </div>
+
+      <!-- Search & Filter Card -->
+      <div class="card" style="padding: 16px 20px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
+          <div class="input-with-icon" style="flex: 1; max-width: 380px;">
+            <span class="input-icon-leading">
+              <i data-lucide="search" style="width: 18px; height: 18px; color: var(--text-secondary);"></i>
+            </span>
+            <input type="text" id="tx-page-search" placeholder="Search by recipient, description, ID...">
+          </div>
+
+          <div class="pill-selector" style="overflow-x: auto; padding: 4px;">
+            <button class="pill-option tx-page-filter active" data-filter="All">All Types</button>
+            <button class="pill-option tx-page-filter" data-filter="Deposit">Deposits</button>
+            <button class="pill-option tx-page-filter" data-filter="Withdrawal">Withdrawals</button>
+            <button class="pill-option tx-page-filter" data-filter="Bank Transfer">Transfers</button>
+            <button class="pill-option tx-page-filter" data-filter="ATM">ATM & Cash</button>
+            <button class="pill-option tx-page-filter" data-filter="Payment">bKash/Cards</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transactions List Card -->
+      <div class="card" style="padding: 12px 18px;">
+        <div id="transactions-page-list" style="display: flex; flex-direction: column;">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Mobile Bottom Navigation -->
+<div class="mobile-bottom-nav">
+  <a href="/index.html" class="mobile-nav-link">
+    <i data-lucide="layout-dashboard"></i>
+    <span>Home</span>
+  </a>
+  <a href="/accounts.html" class="mobile-nav-link">
+    <i data-lucide="landmark"></i>
+    <span>Accounts</span>
+  </a>
+  <a href="/cards.html" class="mobile-nav-link">
+    <i data-lucide="credit-card"></i>
+    <span>Cards</span>
+  </a>
+  <a href="/wallets.html" class="mobile-nav-link">
+    <i data-lucide="wallet"></i>
+    <span>Wallets</span>
+  </a>
+  <a href="/transactions.html" class="mobile-nav-link active">
+    <i data-lucide="arrow-left-right"></i>
+    <span>Activity</span>
+  </a>
+</div>
+
+<!-- Add Transaction Modal -->
+<div id="modal-add-tx" class="modal-overlay">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">
+        <i data-lucide="receipt" style="color: var(--coral-accent);"></i>
+        <span>Log Transaction</span>
+      </div>
+      <button class="modal-close" type="button">&times;</button>
+    </div>
+    <form id="form-new-tx">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="new-tx-type">Transaction Type</label>
+          <select id="new-tx-type" required>
+            <option value="Deposit">Deposit / Income</option>
+            <option value="Withdrawal">Withdrawal</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+            <option value="ATM Withdrawal">ATM Withdrawal</option>
+            <option value="ATM Fee">ATM Fee</option>
+            <option value="Card Payment">Debit Card POS/Online</option>
+            <option value="bKash Payment">bKash Payment</option>
+            <option value="Nagad Payment">Nagad Payment</option>
+            <option value="Other Expenses">Other Expenses</option>
+            <option value="Other Income">Other Income</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="new-tx-amount">Amount (BDT)</label>
+          <div class="input-with-icon">
+            <span class="input-icon-leading font-mono">৳</span>
+            <input type="number" id="new-tx-amount" placeholder="e.g. 3500" min="1" step="any" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="new-tx-source">Account / Channel</label>
+          <input type="text" id="new-tx-source" placeholder="e.g. BRAC Bank (•••5821)" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="new-tx-category">Category</label>
+          <select id="new-tx-category">
+            <option value="Salary">Salary</option>
+            <option value="Food & Dining">Food & Dining</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Utilities">Utilities & Bills</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Transfer">Internal Transfer</option>
+            <option value="Cash">Cash / ATM</option>
+            <option value="General">General</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="new-tx-desc">Description</label>
+          <input type="text" id="new-tx-desc" placeholder="e.g. Agora Superstore" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="new-tx-notes">Notes</label>
+          <input type="text" id="new-tx-notes" placeholder="Optional reference or invoice token">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-modal-cancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Entry</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Receipt Modal -->
+<div id="modal-tx-receipt" class="modal-overlay">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">
+        <i data-lucide="receipt" style="color: var(--coral-accent);"></i>
+        <span>Transaction Receipt</span>
+      </div>
+      <button class="modal-close" type="button">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div style="text-align: center; padding: 10px 0 16px; border-bottom: 1px dashed var(--border-light);">
+        <div style="font-size: 12px; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 0.5px;">Amount</div>
+        <div id="receipt-amount" class="font-mono" style="font-size: 32px; font-weight: 800; margin: 4px 0;">৳ 0.00</div>
+        <span class="status-badge" style="background: var(--status-success-light); color: var(--status-success); font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 9999px;">
+          Verified & Completed
+        </span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; font-size: 13px;">
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-secondary);">Transaction ID:</span>
+          <span id="receipt-id" class="font-mono" style="font-weight: 700;"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-secondary);">Date & Time:</span>
+          <span id="receipt-date" style="font-weight: 600;"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-secondary);">Type:</span>
+          <span id="receipt-type" style="font-weight: 600;"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-secondary);">Category:</span>
+          <span id="receipt-category" style="font-weight: 600;"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-secondary);">Account / Channel:</span>
+          <span id="receipt-source" style="font-weight: 600;"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-secondary);">Destination:</span>
+          <span id="receipt-dest" style="font-weight: 600;"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-secondary);">Description:</span>
+          <span id="receipt-desc" style="font-weight: 600;"></span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-secondary);">Notes:</span>
+          <span id="receipt-notes" style="font-weight: 600;"></span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary btn-modal-cancel">Close</button>
+      <button type="button" class="btn btn-primary" onclick="window.print()">
+        <i data-lucide="printer" style="width: 14px; height: 14px;"></i>
+        <span>Print Receipt</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="/js/app.js"></script>
+<script>
+  let txFilter = 'All';
+  let txSearch = '';
+
+  function renderTransactionsPage() {
+    const txs = BankDB.getTransactions();
+    const container = document.getElementById('transactions-page-list');
+    if (!container) return;
+
+    const filtered = txs.filter(tx => {
+      let matchesType = true;
+      if (txFilter === 'Deposit') matchesType = (tx.type === 'Deposit' || tx.type === 'Other Income');
+      else if (txFilter === 'Withdrawal') matchesType = (tx.type === 'Withdrawal');
+      else if (txFilter === 'Bank Transfer') matchesType = (tx.type === 'Bank Transfer');
+      else if (txFilter === 'ATM') matchesType = (tx.type === 'ATM Withdrawal' || tx.type === 'ATM Fee');
+      else if (txFilter === 'Payment') matchesType = (tx.type.includes('Payment') || tx.type.includes('Card'));
+
+      const matchesSearch = !txSearch ||
+        tx.description.toLowerCase().includes(txSearch.toLowerCase()) ||
+        tx.category.toLowerCase().includes(txSearch.toLowerCase()) ||
+        tx.id.toLowerCase().includes(txSearch.toLowerCase()) ||
+        (tx.notes && tx.notes.toLowerCase().includes(txSearch.toLowerCase()));
+
+      return matchesType && matchesSearch;
+    });
+
+    if (filtered.length === 0) {
+      container.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-secondary);"><p>No transactions found.</p></div>';
+      return;
+    }
+
+    container.innerHTML = filtered.map(tx => {
+      const isIncome = tx.type === 'Deposit' || tx.type === 'Other Income';
+      const isTransfer = tx.type === 'Bank Transfer';
+      const amountClass = isIncome ? 'positive' : 'negative';
+      const prefix = isIncome ? '+' : (isTransfer ? '⇄ ' : '-');
+
+      let iconName = 'arrow-up-right';
+      let bubbleClass = 'expense';
+
+      if (isIncome) {
+        iconName = 'arrow-down-left';
+        bubbleClass = 'income';
+      } else if (isTransfer) {
+        iconName = 'arrow-left-right';
+        bubbleClass = 'transfer';
+      } else if (tx.type.includes('bKash') || tx.type.includes('Nagad')) {
+        iconName = 'smartphone';
+        bubbleClass = 'expense';
+      } else if (tx.type.includes('ATM')) {
+        iconName = 'banknote';
+        bubbleClass = 'expense';
+      }
+
+      return `
+        <div class="tx-item-row" onclick="showTransactionReceipt('${tx.id}')">
+          <div class="tx-leading">
+            <div class="tx-icon-bubble ${bubbleClass}">
+              <i data-lucide="${iconName}" style="width: 20px; height: 20px;"></i>
+            </div>
+            <div class="tx-details-col">
+              <span class="tx-title">${tx.description}</span>
+              <span class="tx-subtitle">${formatDateTime(tx.date)} · ${tx.sourceAccount} · <strong style="color:var(--navy-primary)">${tx.id}</strong></span>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div class="tx-amount-col">
+              <span class="tx-amount-value ${amountClass}">${prefix}${formatCurrency(tx.amount)}</span>
+              <span class="tx-status-pill">${tx.category}</span>
+            </div>
+            <button class="btn btn-sm btn-danger" onclick="event.stopPropagation(); deleteTransaction('${tx.id}')" title="Delete Entry" style="padding: 6px 10px;">
+              <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i>
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    if (window.lucide) window.lucide.createIcons({ root: container });
+  }
+
+  function deleteTransaction(id) {
+    let txs = BankDB.getTransactions();
+    const tx = txs.find(t => t.id === id);
+    if (!tx) return;
+
+    const isCredit = ['Deposit', 'Refund', 'Income', 'Salary'].includes(tx.type) || (tx.category === 'Salary');
+    const sign = isCredit ? '+' : '-';
+    const amountColor = isCredit ? 'var(--status-success)' : 'var(--coral-accent)';
+
+    const itemCardHtml = `
+      <div style="background: #FFF0E7; border: 1px solid #FFD7C1; border-radius: var(--radius-md); padding: 14px 16px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+          <span style="font-size: 11px; font-weight: 700; color: var(--navy-primary); font-family: var(--font-mono); background: #FFF; padding: 2px 8px; border-radius: 4px; border: 1px solid var(--border-light);">
+            ${tx.id}
+          </span>
+          <span class="font-mono" style="font-size: 16px; font-weight: 800; color: ${amountColor};">
+            ${sign}${formatCurrency(tx.amount)}
+          </span>
+        </div>
+        <div style="font-weight: 800; font-size: 14.5px; color: var(--navy-primary); margin-bottom: 4px; font-family: var(--font-display);">
+          ${tx.description}
+        </div>
+        <div style="font-size: 12px; color: var(--text-secondary); display: flex; justify-content: space-between; align-items: center;">
+          <span>${tx.type} · ${tx.sourceAccount}</span>
+          <span class="font-mono" style="font-size: 11px;">${formatDateTime(tx.date)}</span>
+        </div>
+      </div>
+    `;
+
+    showConfirmModal({
+      title: 'Delete Transaction?',
+      badge: 'SQLite Database Purge',
+      message: `Are you sure you want to permanently delete transaction record ${tx.id}?`,
+      itemCardHtml,
+      confirmText: 'Delete from Database',
+      cancelText: 'Keep Record',
+      confirmClass: 'btn-danger',
+      icon: 'trash-2',
+      onConfirm: async () => {
+        // Execute Database Delete Operation
+        try {
+          const res = await fetch('/api/transactions/' + encodeURIComponent(id), {
+            method: 'DELETE'
+          });
+          if (!res.ok) {
+            const data = await res.json().catch(() => ({}));
+            console.warn('Backend delete response:', data);
+          }
+        } catch (err) {
+          console.warn('Network issue executing backend delete:', err);
+        }
+
+        // Synchronize local ledger state & re-render
+        txs = txs.filter(t => t.id !== id);
+        BankDB.saveTransactions(txs);
+        renderTransactionsPage();
+        showToast(`Transaction ${tx.id} deleted from SQLite database`, 'info');
+      }
+    });
+  }
+
+  function exportTransactionsCSV() {
+    const txs = BankDB.getTransactions();
+    let csv = 'Transaction ID,Date,Type,Category,Description,Source Account,Amount,Notes\n';
+    txs.forEach(t => {
+      csv += `"${t.id}","${t.date}","${t.type}","${t.category}","${t.description}","${t.sourceAccount}","${t.amount}","${t.notes || ''}"\n`;
+    });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `MyBank_Apitex_Ledger_${Date.now()}.csv`;
+    link.click();
+    showToast('Ledger CSV exported', 'success');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderTransactionsPage();
+    window.addEventListener('currencyChanged', renderTransactionsPage);
+
+    const searchInput = document.getElementById('tx-page-search');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        txSearch = e.target.value.trim();
+        renderTransactionsPage();
+      });
+    }
+
+    const filterBtns = document.querySelectorAll('.tx-page-filter');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        txFilter = e.target.getAttribute('data-filter') || 'All';
+        renderTransactionsPage();
+      });
+    });
+
+    const form = document.getElementById('form-new-tx');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const type = document.getElementById('new-tx-type').value;
+        const amount = parseFloat(document.getElementById('new-tx-amount').value);
+        const source = document.getElementById('new-tx-source').value.trim();
+        const category = document.getElementById('new-tx-category').value;
+        const desc = document.getElementById('new-tx-desc').value.trim();
+        const notes = document.getElementById('new-tx-notes').value.trim();
+
+        const newTx = {
+          id: 'TX-' + Math.floor(1000 + Math.random() * 9000),
+          date: new Date().toISOString(),
+          amount: amount,
+          type: type,
+          category: category,
+          sourceAccount: source,
+          destAccount: '',
+          description: desc,
+          notes: notes,
+          status: 'Completed'
+        };
+
+        const txs = BankDB.getTransactions();
+        txs.unshift(newTx);
+        BankDB.saveTransactions(txs);
+
+        closeModal('modal-add-tx');
+        form.reset();
+        renderTransactionsPage();
+        showToast('Transaction logged successfully', 'success');
+      });
+    }
+  });
+</script>
+</body>
+</html>

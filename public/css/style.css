@@ -1,0 +1,823 @@
+/* ==========================================================================
+   MyBank – Apitex-Inspired Premium Navy & Peach Design System
+   Luxury Mobile-First Fintech Theme
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap');
+
+:root {
+  /* Apitex Exact Color Palette */
+  --navy-primary: #080727;
+  --navy-secondary: #151333;
+  --navy-card: #1C1942;
+  --navy-subtle: #242250;
+  
+  --bg-main: #FFF9F5;
+  --bg-card: #FFFFFF;
+  --bg-input: #FFFFFF;
+  
+  --peach: #FFD7C1;
+  --peach-hover: #F8CBB2;
+  --peach-light: #FFF0E7;
+  --peach-subtle: #FFF6F1;
+  --peach-border: #F7D4C1;
+  
+  --coral-accent: #FF8B73;
+  --coral-hover: #F2785F;
+  --coral-light: rgba(255, 139, 115, 0.14);
+  
+  --text-primary: #17152F;
+  --text-secondary: #9290A3;
+  --text-muted: #B7B5C6;
+  --text-light: #FFFFFF;
+  --text-light-sub: #CAC9DC;
+  
+  --border-light: #F1E7E1;
+  --border-card: #EFE6DF;
+  --border-hover: #FFD7C1;
+  
+  /* Status */
+  --status-success: #10B981;
+  --status-success-light: #E7F9F3;
+  --status-danger: #EF4444;
+  --status-danger-light: #FDE8E8;
+  --status-warning: #F59E0B;
+  --status-warning-light: #FEF3C7;
+  
+  /* Typography */
+  --font-display: 'Poppins', 'Manrope', sans-serif;
+  --font-body: 'Manrope', 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  /* Dimensions & Radius */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 30px;
+  --radius-full: 9999px;
+  
+  --sidebar-width: 270px;
+  --header-height: 74px;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(8, 7, 39, 0.04);
+  --shadow-card: 0 10px 30px -5px rgba(23, 21, 47, 0.06);
+  --shadow-hover: 0 16px 40px -8px rgba(23, 21, 47, 0.12);
+  --shadow-navy: 0 12px 32px -4px rgba(8, 7, 39, 0.35);
+  --shadow-peach: 0 8px 24px -4px rgba(255, 139, 115, 0.28);
+  
+  --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  color: inherit;
+  transition: var(--transition);
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text-primary);
+  background: var(--bg-input);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  width: 100%;
+  outline: none;
+  transition: var(--transition);
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--coral-accent);
+  box-shadow: 0 0 0 4px var(--coral-light);
+}
+
+select option {
+  background-color: #FFFFFF;
+  color: var(--text-primary);
+}
+
+/* Tabular figures */
+.tabular-nums, .font-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: #E8DCD5;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--peach);
+}
+
+/* Main Layout Wrapper */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  position: relative;
+}
+
+/* ==========================================================================
+   Desktop Navy Sidebar Navigation
+   ========================================================================== */
+.app-sidebar {
+  width: var(--sidebar-width);
+  background: linear-gradient(180deg, var(--navy-primary) 0%, var(--navy-secondary) 100%);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 60;
+  color: var(--text-light);
+  box-shadow: 4px 0 24px rgba(8, 7, 39, 0.15);
+  transition: var(--transition);
+}
+
+.sidebar-header {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--coral-accent) 0%, var(--peach) 100%);
+  color: var(--navy-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-peach);
+  font-weight: 800;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #FFFFFF;
+}
+
+.brand-name span {
+  color: var(--coral-accent);
+}
+
+.brand-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 3px 8px;
+  background: rgba(255, 215, 193, 0.15);
+  color: var(--peach);
+  border: 1px solid rgba(255, 215, 193, 0.3);
+  border-radius: var(--radius-full);
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 20px 14px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nav-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  padding: 14px 14px 6px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  color: var(--text-light-sub);
+  font-weight: 500;
+  font-size: 14px;
+  transition: var(--transition);
+  position: relative;
+}
+
+.nav-item i, .nav-item svg {
+  width: 19px;
+  height: 19px;
+  color: var(--text-light-sub);
+  transition: var(--transition);
+}
+
+.nav-item:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.nav-item:hover i, .nav-item:hover svg {
+  color: var(--peach);
+}
+
+.nav-item.active {
+  color: var(--navy-primary);
+  background: var(--peach);
+  font-weight: 700;
+  box-shadow: 0 4px 18px rgba(255, 215, 193, 0.35);
+}
+
+.nav-item.active i, .nav-item.active svg {
+  color: var(--navy-primary);
+}
+
+.sidebar-footer {
+  padding: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(8, 7, 39, 0.4);
+}
+
+.user-snippet {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.user-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--peach) 0%, var(--coral-accent) 100%);
+  color: var(--navy-primary);
+  font-weight: 800;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.user-info {
+  flex: 1;
+  overflow: hidden;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: #FFFFFF;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-role {
+  font-size: 11px;
+  color: var(--peach);
+}
+
+/* ==========================================================================
+   Main Viewport
+   ========================================================================== */
+.app-main {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: var(--bg-main);
+}
+
+/* Top Navy Header on Desktop & Mobile */
+.app-header {
+  height: var(--header-height);
+  background: var(--navy-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  color: #FFFFFF;
+  box-shadow: 0 4px 20px rgba(8, 7, 39, 0.12);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-light-sub);
+}
+
+.header-breadcrumb span.current {
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.demo-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 215, 193, 0.16);
+  border: 1px solid rgba(255, 215, 193, 0.35);
+  color: var(--peach);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.currency-selector {
+  display: flex;
+  align-items: center;
+  background: var(--navy-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  padding: 3px;
+  gap: 2px;
+}
+
+.currency-btn {
+  padding: 4px 11px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-light-sub);
+  border-radius: var(--radius-full);
+  transition: var(--transition);
+}
+
+.currency-btn.active {
+  background: var(--peach);
+  color: var(--navy-primary);
+  font-weight: 700;
+}
+
+.header-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--navy-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-light);
+  position: relative;
+  transition: var(--transition);
+}
+
+.header-btn:hover {
+  background: var(--navy-subtle);
+  border-color: var(--peach);
+  color: var(--peach);
+}
+
+.notification-badge-dot {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--coral-accent);
+  border-radius: 50%;
+  border: 2px solid var(--navy-primary);
+}
+
+.mobile-menu-toggle {
+  display: none;
+}
+
+/* ==========================================================================
+   Apitex Card System & Containers
+   ========================================================================== */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  transition: var(--transition);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-hover);
+}
+
+.card-navy {
+  background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-secondary) 100%);
+  color: #FFFFFF;
+  border: none;
+  box-shadow: var(--shadow-navy);
+}
+
+.card-peach-soft {
+  background: linear-gradient(135deg, var(--peach-subtle) 0%, var(--peach-light) 100%);
+  border: 1px solid var(--peach-border);
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+/* Primary Navy Button */
+.btn-primary {
+  background: var(--navy-primary);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-navy);
+}
+
+.btn-primary:hover {
+  background: var(--navy-secondary);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(8, 7, 39, 0.22);
+}
+
+/* Secondary Peach Button */
+.btn-peach {
+  background: var(--peach);
+  color: var(--navy-primary);
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-peach:hover {
+  background: var(--peach-hover);
+  transform: translateY(-1px);
+}
+
+/* Coral Accent Button */
+.btn-coral {
+  background: var(--coral-accent);
+  color: #FFFFFF;
+  font-weight: 700;
+  box-shadow: var(--shadow-peach);
+}
+
+.btn-coral:hover {
+  background: var(--coral-hover);
+  transform: translateY(-1px);
+}
+
+/* Outlined Secondary Button */
+.btn-secondary {
+  background: #FFFFFF;
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+}
+
+.btn-secondary:hover {
+  background: var(--peach-light);
+  border-color: var(--peach);
+}
+
+.btn-sm {
+  padding: 8px 14px;
+  font-size: 12px;
+  border-radius: var(--radius-full);
+}
+
+.btn-icon {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border-radius: var(--radius-full);
+}
+
+.btn-danger {
+  background: var(--status-danger-light);
+  color: var(--status-danger);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.btn-danger:hover {
+  background: rgba(239, 68, 68, 0.18);
+}
+
+/* ==========================================================================
+   Modals
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 7, 39, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-dialog {
+  background: #FFFFFF;
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 60px -10px rgba(8, 7, 39, 0.35);
+  transform: scale(0.95) translateY(12px);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  border: 1px solid var(--border-light);
+}
+
+.modal-overlay.open .modal-dialog {
+  transform: scale(1) translateY(0);
+}
+
+.modal-header {
+  padding: 22px 28px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal-close {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  background: var(--bg-main);
+  color: var(--text-secondary);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  background: var(--peach-light);
+  color: var(--text-primary);
+}
+
+.modal-body {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.modal-footer {
+  padding: 18px 28px;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  background: var(--peach-subtle);
+  border-bottom-left-radius: var(--radius-xl);
+  border-bottom-right-radius: var(--radius-xl);
+}
+
+/* Form Groups with Apitex Rounded Style */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.form-hint {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon-leading {
+  position: absolute;
+  left: 14px;
+  width: 22px;
+  height: 22px;
+  color: var(--coral-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.input-with-icon input {
+  padding-left: 44px;
+}
+
+/* ==========================================================================
+   Toast Notification System
+   ========================================================================== */
+#toast-container {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 200;
+}
+
+.toast {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 12px 35px -6px rgba(8, 7, 39, 0.18);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 280px;
+  max-width: 420px;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast-success {
+  border-left: 4px solid var(--status-success);
+}
+
+.toast-error {
+  border-left: 4px solid var(--status-danger);
+}
+
+.toast-info {
+  border-left: 4px solid var(--coral-accent);
+}
+
+/* ==========================================================================
+   Mobile Apitex Navy Bottom Navigation Bar
+   ========================================================================== */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 14px;
+  left: 16px;
+  right: 16px;
+  height: 68px;
+  background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-secondary) 100%);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 12px 36px rgba(8, 7, 39, 0.35);
+  z-index: 50;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.mobile-nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  color: var(--text-light-sub);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+  position: relative;
+}
+
+.mobile-nav-link i, .mobile-nav-link svg {
+  width: 22px;
+  height: 22px;
+  color: var(--text-light-sub);
+}
+
+.mobile-nav-link.active {
+  color: #FFFFFF;
+}
+
+.mobile-nav-link.active i, .mobile-nav-link.active svg {
+  color: var(--peach);
+}
+
+.mobile-nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  width: 14px;
+  height: 3px;
+  background-color: var(--peach);
+  border-radius: 2px;
+}
